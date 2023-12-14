@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, TextInput, Button, Pressable, Platform, Image }
 import { LinearGradient } from 'expo-linear-gradient';
 import { useEffect, useState } from 'react';
 
-export default function BasicInfo({navigation}) {
+export default function RelationshipInfo({navigation}) {
     const [phone, setPhone] = useState('');
     const [password, setPassword] = useState('');
   
@@ -26,30 +26,31 @@ export default function BasicInfo({navigation}) {
         end={{ x: 0, y: 1 }}
         style={styles.container}>
         <View style={styles.signinbox}>
-          <TextInput 
-            style={[styles.displayName, Platform.OS === 'web' ? { outlineColor: 'transparent' } : null ]} 
-            placeholder='Display Name' 
-            //onChangeText={(value) => setPhone(value)}
-          />
-          <TextInput 
-            style={[styles.ageField, Platform.OS === 'web' ? { outlineColor: 'transparent' } : null]} 
-            placeholder='Age' 
-            //onChangeText={(value) => setPassword(value)}
-            keyboardType='phone-pad'
-          />
-          <Pressable title="Height" onPress={handleHeight} style={styles.button}>
+        <Pressable title="Height" onPress={handleHeight} style={styles.buttonTop}>
             <View style={styles.buttonContent}>
-              <Text style={styles.buttonText}>Height</Text>
+              <Text style={styles.buttonText}>Relationship Goal</Text>
               <Text style={styles.icon}>{' >'}</Text>
             </View>
           </Pressable>
           <Pressable title="Height" style={styles.button}>
             <View style={styles.buttonContent}>
-              <Text style={styles.buttonText}>Pronouns</Text>
+              <Text style={styles.buttonText}>Relationship Type</Text>
               <Text style={styles.icon}>{' >'}</Text>
             </View>
           </Pressable>
-          <Pressable title="Sign Up" style={styles.signupbutton} onPress={() => navigation.navigate("RelationshipInfo")}>
+          <Pressable title="Height" onPress={handleHeight} style={styles.button}>
+            <View style={styles.buttonContent}>
+              <Text style={styles.buttonText}>Sexual Orientation</Text>
+              <Text style={styles.icon}>{' >'}</Text>
+            </View>
+          </Pressable>
+          <Pressable title="Height" style={styles.button}>
+            <View style={styles.buttonContent}>
+              <Text style={styles.buttonText}>Gender Identity</Text>
+              <Text style={styles.icon}>{' >'}</Text>
+            </View>
+          </Pressable>
+          <Pressable title="Sign Up" style={styles.signupbutton} onPress={() => navigation.navigate("BasicInfo")}>
             <Image source={require('../assets/next.png')} style={styles.buttonIcon}/>
           </Pressable>
         </View>
@@ -106,6 +107,13 @@ export default function BasicInfo({navigation}) {
       width: 280,
       marginBottom: 40,
     },
+    buttonTop: {
+        borderBottomColor: '#000000',
+        borderBottomWidth: 2,
+        width: 280,
+        marginBottom: 40,
+        marginTop: 10
+      },
     buttonText: {
       fontSize: 30,
     },
