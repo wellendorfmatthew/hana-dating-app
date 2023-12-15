@@ -5,6 +5,7 @@ import Signup from "./Signup";
 import Login from "./Login";
 import BasicInfo from "./Forms/BasicInfo";
 import RelationshipInfo from "./Forms/RelationshipInfo";
+import InterestsInfo from "./Forms/InterestsInfo";
 
 const Stack = createNativeStackNavigator();
 
@@ -16,6 +17,7 @@ export default function App() {
         <Stack.Screen name='Login' component={Login} />
         <Stack.Screen name='BasicInfo' component={BasicInfo} />
         <Stack.Screen name='RelationshipInfo' component={RelationshipInfo} />
+        <Stack.Screen name='InterestsInfo' component={InterestsInfo} />
       </Stack.Navigator>
     </NavigationContainer>
   )
