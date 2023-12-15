@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, TextInput, Button, Pressable, Platform, Image }
 import { LinearGradient } from 'expo-linear-gradient';
 import { useEffect, useState } from 'react';
 
-export default function RelationshipInfo({navigation}) {
+export default function InterestsInfo({navigation}) {
     const [phone, setPhone] = useState('');
     const [password, setPassword] = useState('');
   
@@ -26,33 +26,21 @@ export default function RelationshipInfo({navigation}) {
         end={{ x: 0, y: 1 }}
         style={styles.container}>
         <View style={styles.signinbox}>
-        <Pressable title="Height" onPress={handleHeight} style={styles.buttonTop}>
-            <View style={styles.buttonContent}>
-              <Text style={styles.buttonText}>Relationship Goal</Text>
-              <Text style={styles.icon}>{' >'}</Text>
-            </View>
-          </Pressable>
-          <Pressable title="Height" style={styles.button}>
-            <View style={styles.buttonContent}>
-              <Text style={styles.buttonText}>Relationship Type</Text>
-              <Text style={styles.icon}>{' >'}</Text>
-            </View>
-          </Pressable>
-          <Pressable title="Height" onPress={handleHeight} style={styles.button}>
-            <View style={styles.buttonContent}>
-              <Text style={styles.buttonText}>Sexual Orientation</Text>
-              <Text style={styles.icon}>{' >'}</Text>
-            </View>
-          </Pressable>
-          <Pressable title="Height" style={styles.button}>
-            <View style={styles.buttonContent}>
-              <Text style={styles.buttonText}>Gender Identity</Text>
-              <Text style={styles.icon}>{' >'}</Text>
-            </View>
-          </Pressable>
-          <Pressable title="Sign Up" style={styles.signupbutton} onPress={() => navigation.navigate("InterestsInfo")}>
-            <Image source={require('../assets/next.png')} style={styles.buttonIcon}/>
-          </Pressable>
+            <Pressable title="Height" onPress={handleHeight} style={styles.buttonTop}>
+                <View style={styles.buttonContent}>
+                    <Text style={styles.buttonText}>Interests</Text>
+                    <Text style={styles.icon}>{' >'}</Text>
+                </View>
+            </Pressable>
+            <Text style={styles.descriptionText}>Description</Text>
+            <TextInput 
+                style={styles.description}
+                multiline={true}
+                textAlignVertical='top'
+            />
+            <Pressable title="Sign Up" style={styles.signupbutton} onPress={() => navigation.navigate("RelationshipInfo")}>
+                <Image source={require('../assets/next.png')} style={styles.buttonIcon}/>
+            </Pressable>
         </View>
       </LinearGradient>
     );
@@ -107,6 +95,16 @@ export default function RelationshipInfo({navigation}) {
       width: 280,
       marginBottom: 40,
     },
+    description: {
+        width: 280,
+        marginBottom: 6,
+        height: 200,
+        borderColor: "black",
+        borderWidth: 2,
+        borderRadius: 20,
+        fontSize: 14,
+        paddingHorizontal: 10
+    },
     buttonTop: {
         borderBottomColor: '#000000',
         borderBottomWidth: 2,
@@ -116,6 +114,10 @@ export default function RelationshipInfo({navigation}) {
       },
     buttonText: {
       fontSize: 30,
+    },
+    descriptionText: {
+        fontSize: 30,
+        marginRight: 130
     },
     buttonContent: {
       flexDirection: 'row',
