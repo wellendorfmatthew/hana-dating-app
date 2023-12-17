@@ -38,7 +38,7 @@ export default function InterestsInfo({navigation}) {
                 multiline={true}
                 textAlignVertical='top'
             />
-            <Pressable title="Sign Up" style={styles.signupbutton} onPress={() => navigation.navigate("RelationshipInfo")}>
+            <Pressable title="Sign Up" style={styles.signupbutton} onPress={() => navigation.navigate("PhotosInfo")}>
                 <Image source={require('../assets/next.png')} style={styles.buttonIcon}/>
             </Pressable>
         </View>
