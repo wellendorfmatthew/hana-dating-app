@@ -6,6 +6,7 @@ import Login from "./Login";
 import BasicInfo from "./Forms/BasicInfo";
 import RelationshipInfo from "./Forms/RelationshipInfo";
 import InterestsInfo from "./Forms/InterestsInfo";
+import PhotosInfo from "./Forms/PhotosInfo";
 
 const Stack = createNativeStackNavigator();
 
@@ -18,6 +19,7 @@ export default function App() {
         <Stack.Screen name='BasicInfo' component={BasicInfo} />
         <Stack.Screen name='RelationshipInfo' component={RelationshipInfo} />
         <Stack.Screen name='InterestsInfo' component={InterestsInfo} />
+        <Stack.Screen name='PhotosInfo' component={PhotosInfo} />
       </Stack.Navigator>
     </NavigationContainer>
   )
