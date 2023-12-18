@@ -33,7 +33,7 @@ export default function PhotosInfo({navigation}) {
             <Image style={styles.photosIcon} source={require('../assets/insert-picture-icon.png')}/>
           </Pressable>
         </View>
-        <Pressable title="Sign Up" style={styles.nextButton} onPress={() => navigation.navigate("InterestsInfo")}>
+        <Pressable title="Sign Up" style={styles.nextButton} onPress={() => navigation.navigate("Matching")}>
             <Image source={require('../assets/next.png')} style={styles.buttonIcon}/>
         </Pressable>
       </View>
