@@ -2,8 +2,13 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, TextInput, Button, Pressable, Platform, Image, FlatList } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useEffect, useState } from 'react';
+import getoImage from '../assets/geto.png';
+import higurumaImage from '../assets/higuruma.jpg';
+import ishigoriImage from '../assets/ishigori.jpg';
+import takabaImage from '../assets/takaba.jpg';
+import nanamiImage from '../assets/nanami.png';
 
-export default function Matching({navigation}) {
+export default function Messages({navigation}) {
     const [phone, setPhone] = useState('');
     const [password, setPassword] = useState('');
   
@@ -19,90 +24,60 @@ export default function Matching({navigation}) {
       console.log("Height");
     }
 
-    // TODO: Need to get rid of when backend data is ready
-    const dummyText = "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Similique explicabo distinctio nemo necessitatibus. Ea nisi error alias fuga modi minima cumque tempore suscipit fugit pariatur, a voluptas nulla molestias necessitatibus."
+    // Holds data for a user that will be displayed on the matching card
+    // TODO: Need to add functionality to take info directly from backend
+    const matchesData = [
+        { id: 1, image: getoImage },
+        { id: 2, image: higurumaImage },
+        { id: 3, image: ishigoriImage },
+        { id: 4, image: takabaImage },
+    ]
 
     // Holds data for a user that will be displayed on the matching card
     // TODO: Need to add functionality to take info directly from backend
-    const userData = [
-        { id: 1, name: 'Gojo', age: 28, distance: 20, description: dummyText, identity: 'Male', orientation: 'Gay', type: 'Monogamy', goal: 'Marriage', pronouns: 'He/Him',
-          interests: ['Being strong', 'Showing off', 'Shopping']  }
+    const messagesData = [
+        {id: 1, image: getoImage, message: 'Lorem ipsum', name: 'Geto'},
+        {id: 2, image: higurumaImage, message: 'Lorem ipsum', name: 'Higuruma'},
+        {id: 3, image: ishigoriImage, message: 'Lorem ipsum', name: 'Ryu'},
+        {id: 4, image: takabaImage, message: 'Lorem ipsum', name: 'Takaba'},
+        {id: 5, image: nanamiImage, message: 'Lorem ipsum', name: 'Nanami'},
     ]
 
-
-  
     return (
       <LinearGradient 
         colors={['rgba(128,20,234,1)', 'rgba(211,183,232,1)']}
         start={{ x: 0, y: 0 }}
         end={{ x: 0, y: 1 }}
         style={styles.container}>
-        <View style={styles.mainbox}>
-            <Image style={styles.userImage} source={require('../assets/gojo.jpg')}/>
-            <FlatList 
+        <View style={styles.messagesBox}>
+            <Text style={styles.miniMatchesHeaders}>Matches</Text>
+            <View style={styles.matchingPicturesView}>
+                <FlatList
+                    showsHorizontalScrollIndicator={false}
+                    keyExtractor={(item) => item.id}
+                    horizontal={true}
+                    data={matchesData}
+                    renderItem={({item, index}) => (
+                        <Image style={styles.matchingPictures} source={item.image} />
+                    )}
+                />
+            </View>
+            <Text style={styles.miniMatchesHeaders}>Messages</Text>
+            <FlatList
                 showsVerticalScrollIndicator={false}
-                data={userData}
                 keyExtractor={(item) => item.id}
+                data={messagesData}
                 renderItem={({item, index}) => (
-                    <View style={styles.userBox}>
-                        <Text style={styles.nameText}>{item.name} {item.age}</Text>
-                        <Text style={styles.distanceText}>{item.pronouns}</Text>
-                        <Text style={styles.distanceText}>{item.distance} miles away</Text>
-                        <View style={styles.descriptionView}>
-                            <Text style={styles.miniHeaders}>About Me</Text>
-                            <Text style={styles.distanceText}>{item.description}</Text>
+                    <View style={styles.matchingMessagesView}>
+                        <Image style={styles.matchingPicture} source={item.image} />
+                        <View style={styles.messageView}>
+                            <Text style={styles.messageName}>{item.name}</Text>
+                            <Text style={styles.messageText}>{item.message}</Text>
                         </View>
-                        <View style={styles.sectionView}>
-                            <Text style={styles.miniHeaders}>Sexual Orientation</Text>
-                            <View style={styles.innerSectionView}>
-                                <View style={styles.infoViews}>
-                                    <Text style={styles.interestText}>{item.orientation}</Text>
-                                </View>
-                            </View>
-                        </View>
-                        <View style={styles.sectionView}>
-                            <Text style={styles.miniHeaders}>Gender Identity</Text>
-                            <View style={styles.innerSectionView}>
-                                <View style={styles.infoViews}>
-                                    <Text style={styles.interestText}>{item.identity}</Text>
-                                </View>
-                            </View>
-                        </View>
-                        <View style={styles.sectionView}>
-                            <Text style={styles.miniHeaders}>Relationship Type</Text>
-                            <View style={styles.innerSectionView}>
-                                <View style={styles.infoViews}>
-                                    <Text style={styles.interestText}>{item.type}</Text>
-                                </View>
-                            </View>
-                        </View>
-                        <View style={styles.sectionView}>
-                            <Text style={styles.miniHeaders}>Relationship Goal</Text>
-                            <View style={styles.innerSectionView}>
-                                <View style={styles.infoViews}>
-                                    <Text style={styles.interestText}>{item.goal}</Text>
-                                </View>
-                            </View>
-                        </View>
-                        <View style={styles.sectionView}>
-                            <Text style={styles.miniHeaders}>Interests</Text>
-                            <View style={styles.innerSectionView}>
-                                {item.interests.map((interest) => {
-                                    return (<View style={styles.infoViews}>
-                                                <Text style={styles.interestText}>{interest}</Text>
-                                            </View>
-                                    )
-                                })}
-                            </View>
-                        </View>
-                    </View>    
+                    </View>
                 )}
             />
-            <View style={styles.matchingIconsView}>
-                <Image style={styles.matchingIcons} source={require('../assets/check.png')}/>
-                <Image style={styles.matchingIcons} source={require('../assets/delete-button.png')}/>
-            </View>
-        </View>
+        </View>     
         <View style={styles.downNav}>
             <Pressable onPress={() => navigation.navigate("Messages")}>
                 <Image style={styles.navIcon} source={require('../assets/speech-bubble.png')}/>
@@ -130,6 +105,13 @@ export default function Matching({navigation}) {
       width: 340,
       height: 680,
       borderRadius: 20
+    },
+    messagesBox: {
+      alignItems: 'flex-start',
+      backgroundColor: '#FFFFFF',
+      width: 340,
+      height: 680,
+      borderRadius: 20,
     },
     displayName: {
       borderBottomColor: "#000000",
@@ -267,6 +249,12 @@ export default function Matching({navigation}) {
         fontSize: 30,
         fontWeight: 'bold'
     },
+    miniMatchesHeaders: {
+        fontSize: 30,
+        fontWeight: 'bold',
+        marginBottom: 20,
+        marginTop: 20
+    },
     sectionView: {
         marginTop: 10,
         borderTopWidth: 2
@@ -274,6 +262,41 @@ export default function Matching({navigation}) {
     innerSectionView: {
         flexDirection: 'row',
         flexWrap: 'wrap'
+    },
+    matchingPictures: {
+        height: 150,
+        width: 150,
+        marginLeft: 10,
+        marginRight: 10
+    },
+    matchingPicture: {
+        height: 75,
+        width: 75,
+    },
+    matchingPicturesView: {
+        height: 150,
+        width: 340,
+    },
+    matchingMessagesView: {
+        height: 75,
+        width: 340,
+        flexDirection: 'row',
+        marginBottom: 15,
+    },
+    messageView: {
+        height: 75,
+        width: 265,
+        borderWidth: 2,
+        borderRightWidth: 0,
+        borderLeftWidth: 0,
+        justifyContent: 'space-between'
+    },
+    messageName: {
+        fontSize: 20,
+        fontWeight: 'bold'
+    },
+    messageText: {
+        fontSize: 15
     }
   });
   
