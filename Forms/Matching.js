@@ -110,7 +110,7 @@ export default function Matching({navigation}) {
             <Pressable onPress={() => navigation.navigate("Matching")}>
                 <Image style={styles.navIcon} source={require('../assets/rose.png')}/>
             </Pressable>
-            <Pressable>
+            <Pressable onPress={() => navigation.navigate("Profile")}>
                 <Image style={styles.navIcon} source={require('../assets/user.png')}/>
             </Pressable>
         </View>

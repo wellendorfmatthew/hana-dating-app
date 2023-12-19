@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, TextInput, Button, Pressable, Platform, Image, FlatList } from 'react-native';
+import { StyleSheet, Text, View, TextInput, Button, Pressable, Platform, Image, FlatList, ScrollView } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useEffect, useState } from 'react';
 import getoImage from '../assets/geto.png';
@@ -8,7 +8,7 @@ import ishigoriImage from '../assets/ishigori.jpg';
 import takabaImage from '../assets/takaba.jpg';
 import nanamiImage from '../assets/nanami.png';
 
-export default function Messages({navigation}) {
+export default function Profile({navigation}) {
     const [phone, setPhone] = useState('');
     const [password, setPassword] = useState('');
   
@@ -49,34 +49,82 @@ export default function Messages({navigation}) {
         start={{ x: 0, y: 0 }}
         end={{ x: 0, y: 1 }}
         style={styles.container}>
-        <View style={styles.messagesBox}>
-            <Text style={styles.miniMatchesHeaders}>Matches</Text>
-            <View style={styles.matchingPicturesView}>
-                <FlatList
-                    showsHorizontalScrollIndicator={false}
-                    keyExtractor={(item) => item.id}
-                    horizontal={true}
-                    data={matchesData}
-                    renderItem={({item, index}) => (
-                        <Image style={styles.matchingPictures} source={item.image} />
-                    )}
-                />
-            </View>
-            <Text style={styles.miniMatchesHeaders}>Messages</Text>
-            <FlatList
-                showsVerticalScrollIndicator={false}
-                keyExtractor={(item) => item.id}
-                data={messagesData}
-                renderItem={({item, index}) => (
-                    <View style={styles.matchingMessagesView}>
-                        <Image style={styles.matchingPicture} source={item.image} />
-                        <View style={styles.messageView}>
-                            <Text style={styles.messageName}>{item.name}</Text>
-                            <Text style={styles.messageText}>{item.message}</Text>
-                        </View>
+        <View style={styles.profileBox}>
+            <Image style={styles.userImage} source={require('../assets/gojo.jpg')} />
+            <ScrollView contentContainerStyle={styles.profileSettingsView} showsVerticalScrollIndicator={false}>
+                <Text style={styles.profileHeader}>Account Settings</Text>
+                <Pressable title="Height" style={styles.profileField}>
+                    <View style={styles.profileContent}>
+                        <Text style={styles.profileText}>Phone Number</Text>
+                        <Text style={styles.icon}>{' >'}</Text>
                     </View>
-                )}
-            />
+                </Pressable>
+                <Text style={styles.profileHeader}>Basic Info</Text>
+                <Pressable title="Height" style={styles.profileField}>
+                    <View style={styles.profileContent}>
+                        <Text style={styles.profileText}>Display Name</Text>
+                        <Text style={styles.icon}>{' >'}</Text>
+                    </View>
+                </Pressable>
+                <Pressable title="Height" style={styles.profileField}>
+                    <View style={styles.profileContent}>
+                        <Text style={styles.profileText}>Age</Text>
+                        <Text style={styles.icon}>{' >'}</Text>
+                    </View>
+                </Pressable>
+                <Pressable title="Height" style={styles.profileField}>
+                    <View style={styles.profileContent}>
+                        <Text style={styles.profileText}>Height</Text>
+                        <Text style={styles.icon}>{' >'}</Text>
+                    </View>
+                </Pressable>
+                <Pressable title="Height" style={styles.profileField}>
+                    <View style={styles.profileContent}>
+                        <Text style={styles.profileText}>Pronouns</Text>
+                        <Text style={styles.icon}>{' >'}</Text>
+                    </View>
+                </Pressable>
+                <Text style={styles.profileHeader}>Relationship Info</Text>
+                <Pressable title="Height" style={styles.profileField}>
+                    <View style={styles.profileContent}>
+                        <Text style={styles.profileText}>Relationship Goal</Text>
+                        <Text style={styles.icon}>{' >'}</Text>
+                    </View>
+                </Pressable>
+                <Pressable title="Height" style={styles.profileField}>
+                    <View style={styles.profileContent}>
+                        <Text style={styles.profileText}>Relationship Type</Text>
+                        <Text style={styles.icon}>{' >'}</Text>
+                    </View>
+                </Pressable>
+                <Text style={styles.profileHeader}>Sexual Preference</Text>
+                <Pressable title="Height" style={styles.profileField}>
+                    <View style={styles.profileContent}>
+                        <Text style={styles.profileText}>Sexual Orientation</Text>
+                        <Text style={styles.icon}>{' >'}</Text>
+                    </View>
+                </Pressable>
+                <Text style={styles.profileHeader}>Gender Identity</Text>
+                <Pressable title="Height" style={styles.profileField}>
+                    <View style={styles.profileContent}>
+                        <Text style={styles.profileText}>Gender</Text>
+                        <Text style={styles.icon}>{' >'}</Text>
+                    </View>
+                </Pressable>
+                <Text style={styles.profileHeader}>About Me</Text>
+                <Pressable title="Height" style={styles.profileField}>
+                    <View style={styles.profileContent}>
+                        <Text style={styles.profileText}>Interests</Text>
+                        <Text style={styles.icon}>{' >'}</Text>
+                    </View>
+                </Pressable>
+                <Pressable title="Height" style={styles.profileField}>
+                    <View style={styles.profileContent}>
+                        <Text style={styles.profileText}>Description</Text>
+                        <Text style={styles.icon}>{' >'}</Text>
+                    </View>
+                </Pressable>
+            </ScrollView>
         </View>     
         <View style={styles.downNav}>
             <Pressable onPress={() => navigation.navigate("Messages")}>
@@ -105,6 +153,14 @@ export default function Messages({navigation}) {
       width: 340,
       height: 680,
       borderRadius: 20
+    },
+    profileBox: {
+      alignItems: 'center',
+      backgroundColor: '#FFFFFF',
+      width: 340,
+      height: 680,
+      borderRadius: 20,
+      overflow: 'hidden',
     },
     messagesBox: {
       alignItems: 'flex-start',
@@ -142,6 +198,15 @@ export default function Messages({navigation}) {
       width: 40,
       height: 40
     },
+    profileField: {
+      borderBottomColor: '#000000',
+      borderBottomWidth: 2,
+      borderTopWidth: 2,
+      width: 340,
+      marginBottom: 2,
+      paddingTop: 10,
+      paddingBottom: 10
+    },
     button: {
       borderBottomColor: '#000000',
       borderBottomWidth: 2,
@@ -168,11 +233,19 @@ export default function Messages({navigation}) {
     buttonText: {
       fontSize: 30,
     },
+    profileText: {
+      fontSize: 15,
+    },
     descriptionText: {
         fontSize: 30,
         marginRight: 130
     },
     buttonContent: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+    },
+    profileContent: {
       flexDirection: 'row',
       justifyContent: 'space-between',
       alignItems: 'center',
@@ -297,6 +370,15 @@ export default function Messages({navigation}) {
     },
     messageText: {
         fontSize: 15
+    },
+    profileSettingsView: {
+        width: 340,
+        marginTop: 20,
+        justifyContent: 'flex-start',
+    },
+    profileHeader: {
+        fontSize: 30,
+        fontWeight: 'bold'
     }
   });
   
