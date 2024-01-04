@@ -11,10 +11,11 @@ import {
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { useEffect, useState } from "react";
+import { Picker } from "@react-native-picker/picker";
 import { useInfo } from "../contexts/InfoContext";
 
-export default function BasicInfo({ navigation }) {
-  const { name, setName, age, setAge, height, pronouns } = useInfo();
+export default function HeightInfo({ navigation }) {
+  const { height, setHeight } = useInfo();
 
   return (
     <LinearGradient
@@ -24,47 +25,39 @@ export default function BasicInfo({ navigation }) {
       style={styles.container}
     >
       <View style={styles.signinbox}>
-        <TextInput
-          style={[
-            styles.displayName,
-            Platform.OS === "web" ? { outlineColor: "transparent" } : null,
-          ]}
-          placeholder="Display Name"
-          onChangeText={(value) => setName(value)}
-        />
-        <TextInput
-          style={[
-            styles.ageField,
-            Platform.OS === "web" ? { outlineColor: "transparent" } : null,
-          ]}
-          placeholder="Age"
-          onChangeText={(value) => setAge(value)}
-          keyboardType="phone-pad"
-        />
-        <Pressable
-          title="Height"
-          onPress={() => navigation.navigate("HeightInfo")}
-          style={styles.button}
-        >
-          <View style={styles.buttonContent}>
-            <Text style={styles.buttonText}>Height</Text>
-            <Text style={styles.icon}>{" >"}</Text>
-          </View>
-        </Pressable>
-        <Pressable
-          title="Height"
-          onPress={() => navigation.navigate("PronounsInfo")}
-          style={styles.button}
-        >
-          <View style={styles.buttonContent}>
-            <Text style={styles.buttonText}>Pronouns</Text>
-            <Text style={styles.icon}>{" >"}</Text>
-          </View>
-        </Pressable>
+        <Text style={styles.heightTitle}>Height</Text>
+        <View style={styles.heightPickers}>
+          <Picker
+            selectedValue={height[0]}
+            onValueChange={(value) => setHeight([value, height[1]])}
+            style={styles.picker}
+          >
+            {Array.from({ length: 12 }, (_, index) => (
+              <Picker.Item
+                label={`${index + 0}'`}
+                value={index + 0}
+                key={index}
+              />
+            ))}
+          </Picker>
+          <Picker
+            selectedValue={height[1]}
+            onValueChange={(value) => setHeight([height[0], value])}
+            style={styles.picker}
+          >
+            {Array.from({ length: 12 }, (_, index) => (
+              <Picker.Item
+                label={`${index + 0}"`}
+                value={index + 0}
+                key={index}
+              />
+            ))}
+          </Picker>
+        </View>
         <Pressable
           title="Sign Up"
           style={styles.signupbutton}
-          onPress={() => navigation.navigate("PreferencesInfo")}
+          onPress={() => navigation.navigate("BasicInfo")}
         >
           <Image
             source={require("../assets/next.png")}
@@ -134,5 +127,27 @@ const styles = StyleSheet.create({
   icon: {
     fontSize: 20,
     fontWeight: "bold",
+  },
+  heightTitle: {
+    fontSize: 30,
+  },
+  heightPickers: {
+    flexDirection: "row",
+    gap: 50,
+    marginBottom: Platform.OS === "web" ? 0 : 200, // Adjust the marginBottom as needed
+    alignItems: "center",
+    justifyContent: "center",
+    marginHorizontal: "auto",
+    textAlign: "center",
+  },
+
+  picker: {
+    width: 90,
+    height: 90,
+    // Add additional styles for the Picker component as needed
+  },
+
+  heightText: {
+    fontSize: 20,
   },
 });

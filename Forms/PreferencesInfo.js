@@ -12,7 +12,6 @@ import {
 import { LinearGradient } from "expo-linear-gradient";
 import { useEffect, useState } from "react";
 import Slider from "@react-native-community/slider";
-import { Picker } from "@react-native-picker/picker";
 
 export default function PreferencesInfo({ navigation }) {
   const [phone, setPhone] = useState("");
