@@ -11,24 +11,31 @@ import Matching from "./Forms/Matching";
 import Messages from "./Forms/Messages";
 import Profile from "./Forms/Profile";
 import PreferencesInfo from "./Forms/PreferencesInfo";
+import HeightInfo from "./Forms/HeightInfo";
+import PronounsInfo from "./Forms/PronounsInfo";
+import { InfoProvider } from "./contexts/InfoContext";
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
-    <NavigationContainer>
-      <Stack.Navigator screenOptions={{ headerShown: false }}>
-        <Stack.Screen name='Signup' component={Signup} />
-        <Stack.Screen name='Login' component={Login} />
-        <Stack.Screen name='BasicInfo' component={BasicInfo} />
-        <Stack.Screen name='RelationshipInfo' component={RelationshipInfo} />
-        <Stack.Screen name='InterestsInfo' component={InterestsInfo} />
-        <Stack.Screen name='PhotosInfo' component={PhotosInfo} />
-        <Stack.Screen name='Matching' component={Matching} />
-        <Stack.Screen name='Messages' component={Messages} />
-        <Stack.Screen name='Profile' component={Profile} />
-        <Stack.Screen name='PreferencesInfo' component={PreferencesInfo} />
-      </Stack.Navigator>
-    </NavigationContainer>
-  )
+    <InfoProvider>
+      <NavigationContainer>
+        <Stack.Navigator screenOptions={{ headerShown: false }}>
+          <Stack.Screen name="Signup" component={Signup} />
+          <Stack.Screen name="Login" component={Login} />
+          <Stack.Screen name="BasicInfo" component={BasicInfo} />
+          <Stack.Screen name="RelationshipInfo" component={RelationshipInfo} />
+          <Stack.Screen name="InterestsInfo" component={InterestsInfo} />
+          <Stack.Screen name="PhotosInfo" component={PhotosInfo} />
+          <Stack.Screen name="Matching" component={Matching} />
+          <Stack.Screen name="Messages" component={Messages} />
+          <Stack.Screen name="Profile" component={Profile} />
+          <Stack.Screen name="PreferencesInfo" component={PreferencesInfo} />
+          <Stack.Screen name="HeightInfo" component={HeightInfo} />
+          <Stack.Screen name="PronounsInfo" component={PronounsInfo} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </InfoProvider>
+  );
 }
