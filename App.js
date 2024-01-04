@@ -10,6 +10,7 @@ import PhotosInfo from "./Forms/PhotosInfo";
 import Matching from "./Forms/Matching";
 import Messages from "./Forms/Messages";
 import Profile from "./Forms/Profile";
+import PreferencesInfo from "./Forms/PreferencesInfo";
 
 const Stack = createNativeStackNavigator();
 
@@ -26,6 +27,7 @@ export default function App() {
         <Stack.Screen name='Matching' component={Matching} />
         <Stack.Screen name='Messages' component={Messages} />
         <Stack.Screen name='Profile' component={Profile} />
+        <Stack.Screen name='PreferencesInfo' component={PreferencesInfo} />
       </Stack.Navigator>
     </NavigationContainer>
   )
