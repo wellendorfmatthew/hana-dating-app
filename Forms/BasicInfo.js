@@ -49,7 +49,7 @@ export default function BasicInfo({navigation}) {
               <Text style={styles.icon}>{' >'}</Text>
             </View>
           </Pressable>
-          <Pressable title="Sign Up" style={styles.signupbutton} onPress={() => navigation.navigate("RelationshipInfo")}>
+          <Pressable title="Sign Up" style={styles.signupbutton} onPress={() => navigation.navigate("PreferencesInfo")}>
             <Image source={require('../assets/next.png')} style={styles.buttonIcon}/>
           </Pressable>
         </View>
@@ -78,7 +78,6 @@ export default function BasicInfo({navigation}) {
       marginTop: 10,
       marginBottom: 40,
       fontSize: 30,
-      color: '#8e8e8e'
     },
     ageField: {
       borderBottomColor: "#000000",
@@ -86,7 +85,6 @@ export default function BasicInfo({navigation}) {
       width: 280,
       marginBottom: 40,
       fontSize: 30,
-      color: '#8e8e8e'
     },
     signupbutton: {
       width: 200,
