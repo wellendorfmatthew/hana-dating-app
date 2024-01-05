@@ -13,6 +13,10 @@ import Profile from "./Forms/Profile";
 import PreferencesInfo from "./Forms/PreferencesInfo";
 import HeightInfo from "./Forms/HeightInfo";
 import PronounsInfo from "./Forms/PronounsInfo";
+import RelationshipGoalInfo from "./Forms/RelationshipGoalInfo";
+import RelationshipTypeInfo from "./Forms/RelationshipTypeInfo";
+import SexualOrientationInfo from "./Forms/SexualOrientationInfo";
+import GenderIdentityInfo from "./Forms/GenderIdentityInfo";
 import { InfoProvider } from "./contexts/InfoContext";
 
 const Stack = createNativeStackNavigator();
@@ -34,6 +38,22 @@ export default function App() {
           <Stack.Screen name="PreferencesInfo" component={PreferencesInfo} />
           <Stack.Screen name="HeightInfo" component={HeightInfo} />
           <Stack.Screen name="PronounsInfo" component={PronounsInfo} />
+          <Stack.Screen
+            name="RelationshipGoalInfo"
+            component={RelationshipGoalInfo}
+          />
+          <Stack.Screen
+            name="RelationshipTypeInfo"
+            component={RelationshipTypeInfo}
+          />
+          <Stack.Screen
+            name="SexualOrientationInfo"
+            component={SexualOrientationInfo}
+          />
+          <Stack.Screen
+            name="GenderIdentityInfo"
+            component={GenderIdentityInfo}
+          />
         </Stack.Navigator>
       </NavigationContainer>
     </InfoProvider>
