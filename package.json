@@ -46,7 +46,8 @@
     "react-range-slider-input": "^3.0.7",
     "react-slider": "^2.0.6",
     "react-test-renderer": "^18.2.0",
-    "rn-range-slider": "^2.2.2"
+    "rn-range-slider": "^2.2.2",
+    "expo-image-picker": "~14.3.2"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0"
