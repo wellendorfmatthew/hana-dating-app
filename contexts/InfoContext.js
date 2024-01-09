@@ -16,7 +16,9 @@ const InfoProvider = ({ children }) => {
   const [genderIdentity, setGenderIdentity] = useState("");
   const [interests, setInterests] = useState([]);
   const [description, setDescription] = useState("");
-  const [photos, setPhotos] = useState([]);
+  const [image, setImage] = useState(
+    new Array(6).fill(require("../assets/insert-picture-icon.png"))
+  );
 
   return (
     <InfoContext.Provider
@@ -47,8 +49,8 @@ const InfoProvider = ({ children }) => {
         setInterests,
         description,
         setDescription,
-        photos,
-        setPhotos,
+        image,
+        setImage,
       }}
     >
       {children}
