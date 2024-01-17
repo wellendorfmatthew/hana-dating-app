@@ -7,9 +7,9 @@ const InfoProvider = ({ children }) => {
   const [age, setAge] = useState("");
   const [height, setHeight] = useState([5, 0]);
   const [pronouns, setPronouns] = useState([]);
-  const [location, setLocation] = useState("");
-  const [agePreference, setAgePreference] = useState([]);
-  const [distance, setDistance] = useState("");
+  const [location, setLocation] = useState("Living In");
+  const [agePreference, setAgePreference] = useState([18, 18]);
+  const [distance, setDistance] = useState(0);
   const [relationshipGoal, setRelationshipGoal] = useState("");
   const [relationshipType, setRelationshipType] = useState("");
   const [sexualOrientation, setSexualOrientation] = useState("");

@@ -11,37 +11,38 @@ import {
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { useEffect, useState } from "react";
+import { useInfo } from "../contexts/InfoContext";
 import Slider from "@react-native-community/slider";
+import * as Location from "expo-location";
 
 export default function PreferencesInfo({ navigation }) {
-  const [phone, setPhone] = useState("");
-  const [password, setPassword] = useState("");
-  const [sliderValue, setSliderValue] = useState(0);
+  const { location, setLocation, distance, setDistance } = useInfo(); // Sets the users city and state(region) name
   const [fromAge, setFromAge] = useState(18);
   const [toAge, setToAge] = useState(18);
 
-  useEffect(() => {
-    console.log(phone);
-  }, [phone]);
+  const getLocationInfo = async () => {
+    try {
+      let { status } = await Location.requestForegroundPermissionsAsync();
 
-  useEffect(() => {
-    console.log(password);
-  }, [password]);
+      if (status !== "granted") {
+        console.log("Permission not granted");
+        return;
+      }
 
-  const handleHeight = () => {
-    console.log("Height");
+      let location = await Location.getCurrentPositionAsync({});
+      let reverseGeocode = await Location.reverseGeocodeAsync({
+        latitude: location.coords.latitude,
+        longitude: location.coords.longitude,
+      });
+
+      setLocation(`${reverseGeocode[0].city}, ${reverseGeocode[0].region}`);
+    } catch (error) {
+      console.error("Can't fetch location information".error);
+    }
   };
 
   const onDistanceChange = (value) => {
-    setSliderValue(value);
-  };
-
-  const fromAgeChange = (value) => {
-    setFromAge(value);
-  };
-
-  const toAgeChange = (value) => {
-    setToAge(value);
+    setDistance(value);
   };
 
   return (
@@ -52,13 +53,21 @@ export default function PreferencesInfo({ navigation }) {
       style={styles.container}
     >
       <View style={styles.signinbox}>
-        <Pressable title="Height" style={styles.button}>
+        <Pressable
+          title="Height"
+          style={styles.button}
+          onPress={() => getLocationInfo()}
+        >
           <View style={styles.buttonContent}>
-            <Text style={styles.buttonText}>Living In</Text>
+            <Text style={styles.buttonText}>{location}</Text>
             <Text style={styles.icon}>{" >"}</Text>
           </View>
         </Pressable>
-        <Pressable title="Height" style={styles.button}>
+        <Pressable
+          title="Height"
+          style={styles.button}
+          onPress={() => navigation.navigate("AgePreference")}
+        >
           <View style={styles.buttonContent}>
             <Text style={styles.buttonText}>Age Preference</Text>
             <Text style={styles.icon}>{" >"}</Text>
@@ -70,14 +79,14 @@ export default function PreferencesInfo({ navigation }) {
             style={styles.slider}
             minimumValue={0}
             maximumValue={200}
-            value={sliderValue}
+            value={distance}
             onValueChange={onDistanceChange}
             step={1}
             thumbTintColor="#e0dce0"
             minimumTrackTintColor="#7814EA"
             maximumTrackTintColor="#000000"
           />
-          <Text style={styles.sliderText}>{sliderValue} miles</Text>
+          <Text style={styles.sliderText}>{distance} miles</Text>
         </View>
         <Pressable
           title="Sign Up"
