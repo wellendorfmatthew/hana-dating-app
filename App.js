@@ -20,46 +20,52 @@ import GenderIdentityInfo from "./Forms/GenderIdentityInfo";
 import Interests from "./Forms/Interests";
 import AgePreference from "./Forms/AgePreference";
 import { InfoProvider } from "./contexts/InfoContext";
+import { AuthProvider } from "./contexts/AuthContext";
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
-    <InfoProvider>
-      <NavigationContainer>
-        <Stack.Navigator screenOptions={{ headerShown: false }}>
-          <Stack.Screen name="Signup" component={Signup} />
-          <Stack.Screen name="Login" component={Login} />
-          <Stack.Screen name="BasicInfo" component={BasicInfo} />
-          <Stack.Screen name="RelationshipInfo" component={RelationshipInfo} />
-          <Stack.Screen name="InterestsInfo" component={InterestsInfo} />
-          <Stack.Screen name="PhotosInfo" component={PhotosInfo} />
-          <Stack.Screen name="Matching" component={Matching} />
-          <Stack.Screen name="Messages" component={Messages} />
-          <Stack.Screen name="Profile" component={Profile} />
-          <Stack.Screen name="PreferencesInfo" component={PreferencesInfo} />
-          <Stack.Screen name="HeightInfo" component={HeightInfo} />
-          <Stack.Screen name="PronounsInfo" component={PronounsInfo} />
-          <Stack.Screen name="Interests" component={Interests} />
-          <Stack.Screen name="AgePreference" component={AgePreference} />
-          <Stack.Screen
-            name="RelationshipGoalInfo"
-            component={RelationshipGoalInfo}
-          />
-          <Stack.Screen
-            name="RelationshipTypeInfo"
-            component={RelationshipTypeInfo}
-          />
-          <Stack.Screen
-            name="SexualOrientationInfo"
-            component={SexualOrientationInfo}
-          />
-          <Stack.Screen
-            name="GenderIdentityInfo"
-            component={GenderIdentityInfo}
-          />
-        </Stack.Navigator>
-      </NavigationContainer>
-    </InfoProvider>
+    <AuthProvider>
+      <InfoProvider>
+        <NavigationContainer>
+          <Stack.Navigator screenOptions={{ headerShown: false }}>
+            <Stack.Screen name="Signup" component={Signup} />
+            <Stack.Screen name="Login" component={Login} />
+            <Stack.Screen name="BasicInfo" component={BasicInfo} />
+            <Stack.Screen
+              name="RelationshipInfo"
+              component={RelationshipInfo}
+            />
+            <Stack.Screen name="InterestsInfo" component={InterestsInfo} />
+            <Stack.Screen name="PhotosInfo" component={PhotosInfo} />
+            <Stack.Screen name="Matching" component={Matching} />
+            <Stack.Screen name="Messages" component={Messages} />
+            <Stack.Screen name="Profile" component={Profile} />
+            <Stack.Screen name="PreferencesInfo" component={PreferencesInfo} />
+            <Stack.Screen name="HeightInfo" component={HeightInfo} />
+            <Stack.Screen name="PronounsInfo" component={PronounsInfo} />
+            <Stack.Screen name="Interests" component={Interests} />
+            <Stack.Screen name="AgePreference" component={AgePreference} />
+            <Stack.Screen
+              name="RelationshipGoalInfo"
+              component={RelationshipGoalInfo}
+            />
+            <Stack.Screen
+              name="RelationshipTypeInfo"
+              component={RelationshipTypeInfo}
+            />
+            <Stack.Screen
+              name="SexualOrientationInfo"
+              component={SexualOrientationInfo}
+            />
+            <Stack.Screen
+              name="GenderIdentityInfo"
+              component={GenderIdentityInfo}
+            />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </InfoProvider>
+    </AuthProvider>
   );
 }
