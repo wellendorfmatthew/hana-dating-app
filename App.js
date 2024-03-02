@@ -21,6 +21,7 @@ import Interests from "./Forms/Interests";
 import AgePreference from "./Forms/AgePreference";
 import { InfoProvider } from "./contexts/InfoContext";
 import { AuthProvider } from "./contexts/AuthContext";
+import Chat from "./Forms/Chat";
 
 const Stack = createNativeStackNavigator();
 
@@ -63,6 +64,7 @@ export default function App() {
               name="GenderIdentityInfo"
               component={GenderIdentityInfo}
             />
+            <Stack.Screen name="Chat" component={Chat} />
           </Stack.Navigator>
         </NavigationContainer>
       </InfoProvider>

@@ -15,9 +15,36 @@ import { useAuth } from "./contexts/AuthContext";
 export default function Signup({ navigation }) {
   const { email, setEmail, password, setPassword, handleSignup } = useAuth();
 
-  const handleNewUser = () => {
-    handleSignup();
+  const handleNewUser = async () => {
     navigation.navigate("BasicInfo");
+    // try {
+    //   const result = await handleSignup();
+    //   if (result === true) {
+    //     navigation.navigate("BasicInfo");
+    //     return;
+    //   } else {
+    //     console.log(result);
+    //     console.log(result.code);
+    //     throw new Error(result.code);
+    //   }
+    // } catch (error) {
+    //   console.log(error);
+    //   if (error.message === "auth/email-already-in-use") {
+    //     console.log("Email already associated with an account");
+    //     return;
+    //   } else if (error.message === "auth/invalid-email") {
+    //     console.log("Invalid email please try again");
+    //     return;
+    //   } else if (error.message === "auth/weak-password") {
+    //     console.log(
+    //       "Password must contain one special, lower, upper, and numeric character"
+    //     );
+    //     return;
+    //   } else {
+    //     console.log("Unable to create account please try again");
+    //     return;
+    //   }
+    // }
   };
 
   return (

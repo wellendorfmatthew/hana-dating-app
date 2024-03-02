@@ -12,9 +12,49 @@ import {
 import { LinearGradient } from "expo-linear-gradient";
 import * as ImagePicker from "expo-image-picker";
 import { useInfo } from "../contexts/InfoContext";
+import {
+  addDoc,
+  collection,
+  getFirestore,
+  onSnapshot,
+  orderBy,
+  serverTimestamp,
+  query,
+  getDocs,
+} from "firebase/firestore";
+import { colRef } from "../contexts/AuthContext";
 
 export default function PhotosInfo({ navigation }) {
-  const { image, setImage } = useInfo();
+  const {
+    name,
+    setName,
+    age,
+    setAge,
+    height,
+    setHeight,
+    pronouns,
+    setPronouns,
+    location,
+    setLocation,
+    agePreference,
+    setAgePreference,
+    distance,
+    setDistance,
+    relationshipGoal,
+    setRelationshipGoal,
+    relationshipType,
+    setRelationshipType,
+    sexualOrientation,
+    setSexualOrientation,
+    genderIdentity,
+    setGenderIdentity,
+    interests,
+    setInterests,
+    description,
+    setDescription,
+    image,
+    setImage,
+  } = useInfo();
 
   const handleAddImage = async (position) => {
     // No permissions request is necessary for launching the image library
@@ -32,6 +72,28 @@ export default function PhotosInfo({ navigation }) {
       newImage[position] = { uri: result.uri };
       setImage(newImage);
     }
+  };
+
+  const handleCollection = async () => {
+    const addUser = await addDoc(colRef, {
+      age: age,
+      ageFrom: agePreference[0],
+      ageTo: agePreference[1],
+      description: description,
+      distance: distance,
+      genderIdentity: genderIdentity,
+      height: height,
+      images: image,
+      interests: interests,
+      location: location,
+      name: name,
+      pronouns: pronouns,
+      relationshipGoal: relationshipGoal,
+      relationshipType: relationshipType,
+      sexualOrientation: sexualOrientation,
+      createdAt: serverTimestamp(),
+    });
+    navigation.navigate("Matching");
   };
 
   return (
@@ -86,7 +148,7 @@ export default function PhotosInfo({ navigation }) {
         <Pressable
           title="Sign Up"
           style={styles.nextButton}
-          onPress={() => navigation.navigate("Matching")}
+          onPress={() => handleCollection()}
         >
           <Image
             source={require("../assets/next.png")}

@@ -8,52 +8,120 @@ import {
   Pressable,
   Platform,
   Image,
+  SafeAreaView,
   FlatList,
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
-import { useEffect, useState } from "react";
-import getoImage from "../assets/geto.png";
-import higurumaImage from "../assets/higuruma.jpg";
-import ishigoriImage from "../assets/ishigori.jpg";
-import takabaImage from "../assets/takaba.jpg";
-import nanamiImage from "../assets/nanami.png";
+import React, { useEffect, useState, useCallback } from "react";
+import { useFocusEffect } from "@react-navigation/native";
+import { Picker } from "@react-native-picker/picker";
+import { useInfo } from "../contexts/InfoContext";
+import io from "socket.io-client";
+import { textRef } from "../contexts/AuthContext";
+import { firebase } from "../contexts/AuthContext";
+import {
+  getDoc,
+  collection,
+  doc,
+  FieldValue,
+  onSnapshot,
+  updateDoc,
+  arrayUnion,
+  getDocs,
+} from "firebase/firestore";
 
-export default function Messages({ navigation }) {
-  const [phone, setPhone] = useState("");
-  const [password, setPassword] = useState("");
-
-  useEffect(() => {
-    console.log(phone);
-  }, [phone]);
-
-  useEffect(() => {
-    console.log(password);
-  }, [password]);
-
-  const handleHeight = () => {
-    console.log("Height");
+export default function Chat() {
+  const socket = io.connect("http://localhost:4000");
+  const [text, onChangeText] = useState("");
+  const [messages, setMessages] = useState([]);
+  const [receivedMessages, setReceivedMessages] = useState([]);
+  const [sentMessages, setSentMessages] = useState([]);
+  const [allMessages, setAllMessages] = useState([]);
+  const textRef = collection(firebase, "texting"); // This references the collection
+  const textDocRef = doc(textRef, "69"); // This references the document in the collection
+  const [mess, setMess] = useState(["yo", "beep"]);
+  //   useEffect(() => {
+  //     // This connects to the server endpoint
+  //     socket.emit("event", "yo");
+  //   }, []);
+  const chatMessage = async () => {
+    socket.emit("event", text);
+    await updateDoc(textDocRef, {
+      message: arrayUnion(text),
+    });
+    // setMessages([...messages, text]);
+    // setMessages((prev) => [...prev, receivedMessage]);
+    console.log("chatmessage: ", messages);
+    onChangeText("");
+    console.log("Sent response", text);
+    // socket.on("event", (text) => {
+    //   setMessage(text);
+    //   console.log("Received response", text);
+    // });
   };
 
-  // Holds data for a user that will be displayed on the matching card
-  // TODO: Need to add functionality to take info directly from backend
-  const matchesData = [
-    { id: 1, image: getoImage },
-    { id: 2, image: higurumaImage },
-    { id: 3, image: ishigoriImage },
-    { id: 4, image: takabaImage },
-  ];
+  useEffect(() => {
+    socket.on("event", async (receivedMessage) => {
+      try {
+        await updateDoc(textDocRef, {
+          message: arrayUnion(receivedMessage),
+        });
+        setMessages((prev) => [...prev, receivedMessage]);
+        // setMessages((prev) => [...prev, receivedMessage]);
+        console.log("update ", messages);
+        console.log("Received response", receivedMessage);
+      } catch (error) {
+        console.log(error);
+      }
+    });
+  }, []);
 
-  // Holds data for a user that will be displayed on the matching card
-  // TODO: Need to add functionality to take info directly from backend
-  const messagesData = [
-    { id: 1, image: getoImage, message: "Lorem ipsum", name: "Geto" },
-    { id: 2, image: higurumaImage, message: "Lorem ipsum", name: "Higuruma" },
-    { id: 3, image: ishigoriImage, message: "Lorem ipsum", name: "Ryu" },
-    { id: 4, image: takabaImage, message: "Lorem ipsum", name: "Takaba" },
-    { id: 5, image: nanamiImage, message: "Lorem ipsum", name: "Nanami" },
-  ];
+  useEffect(() => {
+    const retrieveMessages = async () => {
+      const snapshot = await getDoc(textDocRef);
+      if (snapshot.exists()) {
+        const arrayValues = snapshot.data().message;
+        setMessages(arrayValues);
+      }
+    };
+    retrieveMessages();
+  }, []);
+
+  // const updatedMessages = async () => {
+  //   onSnapshot(textDocRef, (snapshot) => {
+  //     if (snapshot && snapshot.docs) {
+  //       snapshot.forEach((doc) => {
+  //         setMessages((prev) => [...prev, doc.data()]);
+  //       });
+  //     }
+  //   });
+  // };
+
+  useEffect(() => {
+    // onSnapshot(textDocRef, (snapshot) => {
+    //   if (snapshot && snapshot.docs) {
+    //     const newMessages = snapshot.docs.map((doc) => doc.data());
+    //     // setMessages(newMessages);
+    //   }
+    // });
+  }, []);
 
   return (
+    // <SafeAreaView>
+    //   <TextInput
+    //     style={styles.input}
+    //     onChangeText={onChangeText}
+    //     value={text}
+    //   />
+    //   <Pressable style={styles.buttonStyle} onPress={() => chatMessage()}>
+    //     <Text style={styles.text}>Send Message</Text>
+    //   </Pressable>
+    //   {messages &&
+    //     messages.map((message, index) => {
+    //       return <Text key={index}>{message}</Text>;
+    //     })}
+    // </SafeAreaView>
+
     <LinearGradient
       colors={["rgba(128,20,234,1)", "rgba(211,183,232,1)"]}
       start={{ x: 0, y: 0 }}
@@ -61,8 +129,8 @@ export default function Messages({ navigation }) {
       style={styles.container}
     >
       <View style={styles.messagesBox}>
-        <Text style={styles.miniMatchesHeaders}>Matches</Text>
-        <View style={styles.matchingPicturesView}>
+        {/* <Text style={styles.miniMatchesHeaders}>Matches</Text> */}
+        {/* <View style={styles.matchingPicturesView}>
           <FlatList
             showsHorizontalScrollIndicator={false}
             keyExtractor={(item) => item.id}
@@ -73,21 +141,17 @@ export default function Messages({ navigation }) {
             )}
           />
         </View>
-        <Text style={styles.miniMatchesHeaders}>Messages</Text>
+        <Text style={styles.miniMatchesHeaders}>Messages</Text> */}
         <FlatList
           showsVerticalScrollIndicator={false}
-          keyExtractor={(item) => item.id}
-          data={messagesData}
+          // keyExtractor={(item) => item.id}
+          data={mess}
           renderItem={({ item, index }) => (
-            <Pressable onPress={() => navigation.navigate("Chat")}>
-              <View style={styles.matchingMessagesView}>
-                <Image style={styles.matchingPicture} source={item.image} />
-                <View style={styles.messageView}>
-                  <Text style={styles.messageName}>{item.name}</Text>
-                  <Text style={styles.messageText}>{item.message}</Text>
-                </View>
+            <View style={styles.chatMessageBox}>
+              <View style={styles.innerChatMessageBox}>
+                <Text style={styles.messageBoxText}>{item}</Text>
               </View>
-            </Pressable>
+            </View>
           )}
         />
       </View>
@@ -319,5 +383,18 @@ const styles = StyleSheet.create({
   },
   messageText: {
     fontSize: 15,
+  },
+  chatMessageBox: {
+    height: 50,
+    backgroundColor: "rgba(128,20,234,1)",
+  },
+  innerChatMessageBox: {
+    width: 200,
+    flexWrap: "wrap",
+    paddingLeft: 10,
+    paddingRight: 10,
+  },
+  messageBoxText: {
+    color: "black",
   },
 });
